@@ -36,7 +36,7 @@
         </div>
 
 
-        <div class="booking-form">
+        <div id="fullForm" class="booking-form">
             <h3>Book Ocean Time</h3>
             <div class="input-group">
                 <label for="">Flying From</label>
@@ -60,7 +60,7 @@
                 <div class="first-class-ticket-area">
                     <div class="ticket-area-content">
                         <label for=" ">First Class ($150)</label>
-                        <input id="firstClassTicketCount" class="form-control text-center " value="1 ">
+                        <input id="firstClassTicketCount" class="form-control text-center " value="0">
                     </div>
 
                     <div class="ticket-area-btn">
@@ -74,7 +74,7 @@
                 <div class="economy-class-ticket-area">
                     <div class="ticket-area-content">
                         <label for=" ">Economy ($100)</label>
-                        <input id="economyClassTicketCount" class="form-control text-center " value="1 ">
+                        <input id="economyClassTicketCount" class="form-control text-center " value="0">
                     </div>
 
                     <div class="ticket-area-btn">
@@ -113,59 +113,51 @@
                     </div>
                 </div>
             </div>
-            <button class="btn-style ">Book Now</button>
+            <button id="bookNow" class="btn-style ">Book Now</button>
         </div>
     </main>
     <script>
-        // Event Handler for First Class Ticket 
+        // Event Handler for First Class and Economy Class Ticket 
 
         document.getElementById('firstClassTicketIncreaseBtn').addEventListener('click', function() {
-            firstClassTicketCountAndPrice(true);
+            ticketCountAndPrice('firstClass', true);
             totalPriceUpdate();
         })
         document.getElementById('firstClassTicketDecreaseBtn').addEventListener('click', function() {
-            firstClassTicketCountAndPrice(false);
+            ticketCountAndPrice('firstClass', false);
             totalPriceUpdate();
         })
 
-
-        function firstClassTicketCountAndPrice(isUpdate) {
-            var firstClassTicketCount = document.getElementById('firstClassTicketCount');
-            var firstClassTicketCountNumber = parseFloat(firstClassTicketCount.value);
-            var firstClassTicketCountAmount = firstClassTicketCountNumber;
-            if (isUpdate == true) {
-                firstClassTicketCountAmount = firstClassTicketCountNumber + 1;
-            }
-            if (isUpdate == false && firstClassTicketCountNumber > 0) {
-                firstClassTicketCountAmount = firstClassTicketCountNumber - 1;
-            }
-            firstClassTicketCount.value = firstClassTicketCountAmount;
-            var firstClassTicketCountPrice = firstClassTicketCountAmount * 150;
-        }
-        // Event Handler for Economy Class Ticket 
-
         document.getElementById('economyClassTicketIncreaseBtn').addEventListener('click', function() {
-            economyClassTicketCountAndPrice(true);
+            ticketCountAndPrice('economyClass', true);
             totalPriceUpdate();
         })
         document.getElementById('economyClassTicketDecreaseBtn').addEventListener('click', function() {
-            economyClassTicketCountAndPrice(false);
+            ticketCountAndPrice('economyClass', false);
             totalPriceUpdate();
         })
 
-        function economyClassTicketCountAndPrice(isUpdate) {
-            var economyClassTicketCount = document.getElementById('economyClassTicketCount');
-            var economyClassTicketCountNumber = parseFloat(economyClassTicketCount.value);
-            var economyClassTicketCountAmount = economyClassTicketCountNumber;
+
+        function ticketCountAndPrice(ticket, isUpdate) {
+            var ticketCount = document.getElementById(ticket + 'TicketCount');
+            var ticketCountNumber = parseFloat(ticketCount.value);
+            var ticketCountAmount = ticketCountNumber;
             if (isUpdate == true) {
-                economyClassTicketCountAmount = economyClassTicketCountNumber + 1;
+                ticketCountAmount = ticketCountNumber + 1;
             }
-            if (isUpdate == false && economyClassTicketCountNumber > 0) {
-                economyClassTicketCountAmount = economyClassTicketCountNumber - 1;
+            if (isUpdate == false && ticketCountNumber > 0) {
+                ticketCountAmount = ticketCountNumber - 1;
             }
-            economyClassTicketCount.value = economyClassTicketCountAmount;
-            var economyClassTicketCountPrice = economyClassTicketCountAmount * 100;
+            ticketCount.value = ticketCountAmount;
+            var ticketTotal = 0;
+            if (ticketTotal == 'firstClass') {
+                ticketCountPrice = ticketCountAmount * 150;
+            }
+            if (ticketTotal == 'economyClass') {
+                ticketCountPrice = ticketCountAmount * 100;
+            }
         }
+
 
         function totalPriceUpdate() {
             var firstClassTicketCount = document.getElementById('firstClassTicketCount');
@@ -174,13 +166,13 @@
             var economyClassTicketCount = document.getElementById('economyClassTicketCount');
             var economyClassTicketCountAmount = parseFloat(economyClassTicketCount.value);
 
-            var totalItemPrice = firstClassTicketCountAmount * 150 + economyClassTicketCountAmount * 100;
-            document.getElementById('totalPrice').innerText = totalItemPrice;
+            var totalTicketPrice = firstClassTicketCountAmount * 150 + economyClassTicketCountAmount * 100;
+            document.getElementById('totalPrice').innerText = totalTicketPrice;
 
-            var tax = Math.round(totalItemPrice * 0.1);
+            var tax = Math.round(totalTicketPrice * 0.1);
             document.getElementById('totalTax').innerText = '$' + tax;
 
-            var grandTotal = totalItemPrice + tax;
+            var grandTotal = totalTicketPrice + tax;
             document.getElementById('grandTotal').innerText = '$' + grandTotal;
         }
     </script>
