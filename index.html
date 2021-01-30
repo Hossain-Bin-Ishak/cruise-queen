@@ -36,7 +36,7 @@
         </div>
 
 
-        <div id="fullForm" class="booking-form">
+        <div class="booking-form">
             <h3>Book Ocean Time</h3>
             <div class="input-group">
                 <label for="">Flying From</label>
@@ -175,6 +175,12 @@
             var grandTotal = totalTicketPrice + tax;
             document.getElementById('grandTotal').innerText = '$' + grandTotal;
         }
+
+        // Book Now Button Event Handler
+
+        document.getElementById('bookNow').addEventListener('click', function() {
+            document.getElementById('fullForm').innerText = print();
+        })
     </script>
 </body>
 
