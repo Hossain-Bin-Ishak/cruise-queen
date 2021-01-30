@@ -36,7 +36,7 @@
         </div>
 
 
-        <div class="booking-form">
+        <div id="divContent" class="booking-form">
             <h3>Book Ocean Time</h3>
             <div class="input-group">
                 <label for="">Flying From</label>
@@ -113,7 +113,7 @@
                     </div>
                 </div>
             </div>
-            <button id="bookNow" class="btn-style ">Book Now</button>
+            <button id="bookNow" class="btn-style " onclick="printContent('divContent')">Book Now</button>
         </div>
     </main>
     <script>
@@ -178,9 +178,13 @@
 
         // Book Now Button Event Handler
 
-        document.getElementById('bookNow').addEventListener('click', function() {
-            document.getElementById('fullForm').innerText = print();
-        })
+        function printContent(element) {
+            var restorePage = document.body.innerHTML;
+            var printText = document.getElementById(element).innerHTML;
+            document.body.innerHTML = printText;
+            window.print();
+            document.body.innerHTML = restorePage;
+        };
     </script>
 </body>
 
